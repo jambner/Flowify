@@ -9,19 +9,23 @@
 /* Begin PBXBuildFile section */
 		5964EFB52C431FD200C2D8DA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5964EFB42C431FD200C2D8DA /* AppDelegate.swift */; };
 		5964EFB72C431FD200C2D8DA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5964EFB62C431FD200C2D8DA /* SceneDelegate.swift */; };
-		5964EFB92C431FD200C2D8DA /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5964EFB82C431FD200C2D8DA /* MainViewController.swift */; };
+		5964EFB92C431FD200C2D8DA /* FormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5964EFB82C431FD200C2D8DA /* FormViewController.swift */; };
 		5964EFBE2C431FD400C2D8DA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5964EFBD2C431FD400C2D8DA /* Assets.xcassets */; };
 		596944242C642D6100B37542 /* Components.swift in Sources */ = {isa = PBXBuildFile; fileRef = 596944232C642D6100B37542 /* Components.swift */; };
+		59CAC5532C83E0E400977E6D /* ScreenshotHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59CAC5522C83E0E400977E6D /* ScreenshotHandler.swift */; };
+		59CAC5552C83E2C600977E6D /* ScreenshotPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59CAC5542C83E2C600977E6D /* ScreenshotPresenter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		5964EFB12C431FD200C2D8DA /* Flowify.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Flowify.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5964EFB42C431FD200C2D8DA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5964EFB62C431FD200C2D8DA /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		5964EFB82C431FD200C2D8DA /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		5964EFB82C431FD200C2D8DA /* FormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormViewController.swift; sourceTree = "<group>"; };
 		5964EFBD2C431FD400C2D8DA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5964EFC22C431FD400C2D8DA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		596944232C642D6100B37542 /* Components.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Components.swift; sourceTree = "<group>"; };
+		59CAC5522C83E0E400977E6D /* ScreenshotHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenshotHandler.swift; sourceTree = "<group>"; };
+		59CAC5542C83E2C600977E6D /* ScreenshotPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenshotPresenter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,10 +60,12 @@
 			children = (
 				5964EFB42C431FD200C2D8DA /* AppDelegate.swift */,
 				5964EFB62C431FD200C2D8DA /* SceneDelegate.swift */,
-				5964EFB82C431FD200C2D8DA /* MainViewController.swift */,
+				5964EFB82C431FD200C2D8DA /* FormViewController.swift */,
 				5964EFBD2C431FD400C2D8DA /* Assets.xcassets */,
 				5964EFC22C431FD400C2D8DA /* Info.plist */,
 				596944232C642D6100B37542 /* Components.swift */,
+				59CAC5522C83E0E400977E6D /* ScreenshotHandler.swift */,
+				59CAC5542C83E2C600977E6D /* ScreenshotPresenter.swift */,
 			);
 			path = Flowify;
 			sourceTree = "<group>";
@@ -133,9 +139,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5964EFB92C431FD200C2D8DA /* MainViewController.swift in Sources */,
+				5964EFB92C431FD200C2D8DA /* FormViewController.swift in Sources */,
+				59CAC5532C83E0E400977E6D /* ScreenshotHandler.swift in Sources */,
 				596944242C642D6100B37542 /* Components.swift in Sources */,
 				5964EFB52C431FD200C2D8DA /* AppDelegate.swift in Sources */,
+				59CAC5552C83E2C600977E6D /* ScreenshotPresenter.swift in Sources */,
 				5964EFB72C431FD200C2D8DA /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

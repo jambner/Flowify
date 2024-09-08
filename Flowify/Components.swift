@@ -30,3 +30,37 @@ class Components: UIViewController {
         return button
     }()
 }
+
+extension UITextView: KeyAssociable {
+    private struct AssociatedKeys {
+        static var key = "key"
+    }
+
+    var key: String {
+        get {
+            return objc_getAssociatedObject(self, &AssociatedKeys.key) as? String ?? ""
+        }
+        set {
+            objc_setAssociatedObject(self, &AssociatedKeys.key, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        }
+    }
+}
+
+extension UITextField: KeyAssociable {
+    private struct AssociatedKeys {
+        static var key = "key"
+    }
+    
+    var key: String {
+        get {
+            return objc_getAssociatedObject(self, &AssociatedKeys.key) as? String ?? ""
+        }
+        set {
+            objc_setAssociatedObject(self, &AssociatedKeys.key, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        }
+    }
+    
+    func validateEditedField(target: Any?, action: Selector) {
+        self.addTarget(target, action: action, for: UIControl.Event.editingChanged)
+    }
+}

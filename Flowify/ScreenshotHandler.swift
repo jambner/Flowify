@@ -19,4 +19,8 @@ class ScreenshotHandler {
     func updateData(formData: [String: String]) {
         print("success")
     }
+    
+    @objc func handleScreenshot() {
+        print("hi")
+    }
 }

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		595E893D2C8F8513000ED90B /* ScreenshotPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 595E893C2C8F8513000ED90B /* ScreenshotPresenterTests.swift */; };
 		5964EFB52C431FD200C2D8DA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5964EFB42C431FD200C2D8DA /* AppDelegate.swift */; };
 		5964EFB72C431FD200C2D8DA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5964EFB62C431FD200C2D8DA /* SceneDelegate.swift */; };
 		5964EFB92C431FD200C2D8DA /* FormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5964EFB82C431FD200C2D8DA /* FormViewController.swift */; };
@@ -16,7 +17,19 @@
 		59CAC5552C83E2C600977E6D /* ScreenshotPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59CAC5542C83E2C600977E6D /* ScreenshotPresenter.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		595E893E2C8F8513000ED90B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5964EFA92C431FD200C2D8DA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5964EFB02C431FD200C2D8DA;
+			remoteInfo = Flowify;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
+		595E893A2C8F8513000ED90B /* FlowifyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FlowifyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		595E893C2C8F8513000ED90B /* ScreenshotPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenshotPresenterTests.swift; sourceTree = "<group>"; };
 		5964EFB12C431FD200C2D8DA /* Flowify.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Flowify.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5964EFB42C431FD200C2D8DA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5964EFB62C431FD200C2D8DA /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -29,6 +42,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		595E89372C8F8513000ED90B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		5964EFAE2C431FD200C2D8DA /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -39,10 +59,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		595E893B2C8F8513000ED90B /* FlowifyTests */ = {
+			isa = PBXGroup;
+			children = (
+				595E893C2C8F8513000ED90B /* ScreenshotPresenterTests.swift */,
+			);
+			path = FlowifyTests;
+			sourceTree = "<group>";
+		};
 		5964EFA82C431FD200C2D8DA = {
 			isa = PBXGroup;
 			children = (
 				5964EFB32C431FD200C2D8DA /* Flowify */,
+				595E893B2C8F8513000ED90B /* FlowifyTests */,
 				5964EFB22C431FD200C2D8DA /* Products */,
 			);
 			sourceTree = "<group>";
@@ -51,6 +80,7 @@
 			isa = PBXGroup;
 			children = (
 				5964EFB12C431FD200C2D8DA /* Flowify.app */,
+				595E893A2C8F8513000ED90B /* FlowifyTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -73,6 +103,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		595E89392C8F8513000ED90B /* FlowifyTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 595E89422C8F8513000ED90B /* Build configuration list for PBXNativeTarget "FlowifyTests" */;
+			buildPhases = (
+				595E89362C8F8513000ED90B /* Sources */,
+				595E89372C8F8513000ED90B /* Frameworks */,
+				595E89382C8F8513000ED90B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				595E893F2C8F8513000ED90B /* PBXTargetDependency */,
+			);
+			name = FlowifyTests;
+			productName = FlowifyTests;
+			productReference = 595E893A2C8F8513000ED90B /* FlowifyTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		5964EFB02C431FD200C2D8DA /* Flowify */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 5964EFC52C431FD400C2D8DA /* Build configuration list for PBXNativeTarget "Flowify" */;
@@ -100,6 +148,10 @@
 				LastSwiftUpdateCheck = 1340;
 				LastUpgradeCheck = 1340;
 				TargetAttributes = {
+					595E89392C8F8513000ED90B = {
+						CreatedOnToolsVersion = 13.4.1;
+						TestTargetID = 5964EFB02C431FD200C2D8DA;
+					};
 					5964EFB02C431FD200C2D8DA = {
 						CreatedOnToolsVersion = 13.4.1;
 					};
@@ -119,11 +171,19 @@
 			projectRoot = "";
 			targets = (
 				5964EFB02C431FD200C2D8DA /* Flowify */,
+				595E89392C8F8513000ED90B /* FlowifyTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		595E89382C8F8513000ED90B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		5964EFAF2C431FD200C2D8DA /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -135,6 +195,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		595E89362C8F8513000ED90B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				595E893D2C8F8513000ED90B /* ScreenshotPresenterTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		5964EFAD2C431FD200C2D8DA /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -150,7 +218,51 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		595E893F2C8F8513000ED90B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5964EFB02C431FD200C2D8DA /* Flowify */;
+			targetProxy = 595E893E2C8F8513000ED90B /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		595E89402C8F8513000ED90B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 7R9ZQ63BP7;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = personal.FlowifyTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Flowify.app/Flowify";
+			};
+			name = Debug;
+		};
+		595E89412C8F8513000ED90B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 7R9ZQ63BP7;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = personal.FlowifyTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Flowify.app/Flowify";
+			};
+			name = Release;
+		};
 		5964EFC32C431FD400C2D8DA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -322,6 +434,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		595E89422C8F8513000ED90B /* Build configuration list for PBXNativeTarget "FlowifyTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				595E89402C8F8513000ED90B /* Debug */,
+				595E89412C8F8513000ED90B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		5964EFAC2C431FD200C2D8DA /* Build configuration list for PBXProject "Flowify" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

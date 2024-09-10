@@ -12,9 +12,9 @@ class ScreenshotPresenter {
     
     typealias RecordCompletion = (Bool) -> Void
     var notificationCenter = NotificationCenter.default
-    private var observerFlag: Bool?
+    var observerFlag: Bool?
     private weak var viewController: FormViewController?
-    private var model: ScreenshotHandler?
+    var handler: ScreenshotHandler?
 
     //TODO: Fix this issue where @objc selector is being unrecognized when in presenter class.
     @objc func toggleRecordButtonAction() {
@@ -36,43 +36,19 @@ class ScreenshotPresenter {
                 print("Stopped recording toggle")
                 observerFlag = false
             } else {
-                notificationCenter.addObserver(self, selector: #selector(handleScreenshot), name: UIApplication.userDidTakeScreenshotNotification, object: nil)
+                notificationCenter.addObserver(self, selector: #selector(handler?.handleScreenshot), name: UIApplication.userDidTakeScreenshotNotification, object: nil)
                 print("Started recording toggle")
                 observerFlag = true
             }
         } else {
             // First time toggle
-            notificationCenter.addObserver(self, selector: #selector(handleScreenshot), name: UIApplication.userDidTakeScreenshotNotification, object: nil)
+            notificationCenter.addObserver(self, selector: #selector(handler?.handleScreenshot), name: UIApplication.userDidTakeScreenshotNotification, object: nil)
             print("Started recording toggle")
             observerFlag = true
         }
         
         completion(true)
     }
-    
-    func prepareFormData(name: String, email: String) {
-
-    }
-    
-    func getData(_ textfield: UITextField) -> Bool {
-        return true
-    }
-    
-    @objc func notify() {
-        print("Submit button tapped")
-        let notificationCenter = NotificationCenter.default
-        notificationCenter.addObserver(self, selector: #selector(appMovedToBackground), name: UIApplication.willResignActiveNotification, object: nil)
-    }
-    
-    @objc func appMovedToBackground() {
-        print("App moved to background")
-    }
-    
-    // Should be moved to handler
-    @objc private func handleScreenshot() {
-        print("hi")
-    }
-    
 }
 
 extension ScreenshotPresenter: DataRetrieval {
@@ -86,7 +62,7 @@ extension ScreenshotPresenter: DataRetrieval {
         key = textfield.key
         data = textfield.text ?? ""
 
-        model?.updateData(formData: [key: data])
+        handler?.updateData(formData: [key: data])
         return true
     }
 }

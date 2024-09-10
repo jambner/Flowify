@@ -8,11 +8,8 @@
 import Foundation
 
 class ScreenshotHandler {
-    let viewController: FormViewController?
-
-    init() {
-        viewController = FormViewController()
-    }
+    // FormData
+    private(set) var formData: [String: String] = [:]
 
     func updateData(formData _: [String: String]) {
         print("success")

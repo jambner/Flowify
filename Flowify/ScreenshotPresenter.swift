@@ -15,6 +15,10 @@ class ScreenshotPresenter {
     private weak var viewController: FormViewController?
     var handler: ScreenshotHandler?
 
+    init() {
+        handler = ScreenshotHandler()
+    }
+
     // TODO: Fix this issue where @objc selector is being unrecognized when in presenter class.
     @objc func toggleRecordButtonAction() {
         recordingToggle { success in
@@ -51,17 +55,28 @@ class ScreenshotPresenter {
 }
 
 extension ScreenshotPresenter: DataRetrieval {
-    func retrieveData(_ textfield: UITextField) -> Bool {
-        guard textfield.text != nil else {
-            return false
+    func retrieveData(from textfields: [UITextField]) -> Bool {
+        var formData: [String: String] = [:]
+
+        // Loop through each textfield for each key-data pair
+        for textField in textfields {
+            guard let key = textField.key, !key.isEmpty,
+                  let data = textField.text, !data.isEmpty
+            else {
+                continue
+            }
+
+            // Combine all pairs into a dictionary
+            formData[key] = data
         }
-        var key: String
-        var data: String
 
-        key = textfield.key
-        data = textfield.text ?? ""
+        // Call the updateData function with the combined formData dictionary
+        if !formData.isEmpty {
+            handler?.updateData(formData: formData)
+            return true
+        }
 
-        handler?.updateData(formData: [key: data])
-        return true
+        // Return false if no valid data was collected
+        return false
     }
 }

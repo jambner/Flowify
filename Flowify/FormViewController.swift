@@ -8,11 +8,11 @@
 import UIKit
 
 protocol DataRetrieval {
-    func retrieveData(_ textfield: UITextField) -> Bool
+    func retrieveData(from textfields: [UITextField]) -> Bool
 }
 
 protocol KeyAssociable {
-    var key: String { get }
+    var key: String? { get }
 }
 
 class FormViewController: UIViewController {
@@ -109,7 +109,7 @@ class FormViewController: UIViewController {
 
         // Use the data retrieval protocol to handle each text field
         for textField in textFields {
-            if let success = dataDelegate?.retrieveData(textField), success {
+            if let success = dataDelegate?.retrieveData(from: textFields), success {
                 print("Data retrieval successful for \(textField.placeholder ?? "unknown field")")
             } else {
                 print("Data retrieval failed for \(textField.placeholder ?? "unknown field")")

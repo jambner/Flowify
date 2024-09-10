@@ -34,7 +34,7 @@ extension UITextView: KeyAssociable {
         static var key = "key"
     }
 
-    var key: String {
+    var key: String? {
         get {
             return objc_getAssociatedObject(self, &AssociatedKeys.key) as? String ?? ""
         }
@@ -49,7 +49,7 @@ extension UITextField: KeyAssociable {
         static var key = "key"
     }
 
-    var key: String {
+    var key: String? {
         get {
             return objc_getAssociatedObject(self, &AssociatedKeys.key) as? String ?? ""
         }

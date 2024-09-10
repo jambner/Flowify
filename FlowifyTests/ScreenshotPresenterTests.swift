@@ -63,16 +63,20 @@ class ScreenshotPresenterTests: XCTestCase {
     }
 
     func testRetrieveData_ProcessesTextFieldData() {
-        let textField = UITextField()
-        textField.text = "test data"
-        textField.key = "testKey"
+        let textField1 = UITextField()
+        textField1.text = "Dog"
+        textField1.key = "name"
+        let textField2 = UITextField()
+        textField2.text = "Dog@gmail.com"
+        textField2.key = "email"
+        let mockArray = [textField1, textField2]
 
         // Use a simple implementation of ScreenshotHandler or use a real one if available
         let screenshotHandler = ScreenshotHandler()
         sut?.handler = screenshotHandler
 
         // Test retrieveData
-        let success = sut?.retrieveData(textField)
+        let success = sut?.retrieveData(from: mockArray)
 
         XCTAssertTrue(success != nil, "Data retrieval should succeed")
     }

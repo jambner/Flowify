@@ -7,19 +7,17 @@
 
 import Foundation
 
-
 class ScreenshotHandler {
-    
     let viewController: FormViewController?
-    
+
     init() {
-        self.viewController = FormViewController()
+        viewController = FormViewController()
     }
-    
-    func updateData(formData: [String: String]) {
+
+    func updateData(formData _: [String: String]) {
         print("success")
     }
-    
+
     @objc func handleScreenshot() {
         print("hi")
     }

@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  FormViewController.swift
 //  Flowify
 //
 //  Created by Ramon Martinez on 7/13/24.
@@ -16,9 +16,8 @@ protocol KeyAssociable {
 }
 
 class FormViewController: UIViewController {
-    
     private var presenter = ScreenshotPresenter()
-    
+
     var dataDelegate: DataRetrieval!
 
     private lazy var stackView: UIStackView = {
@@ -29,7 +28,7 @@ class FormViewController: UIViewController {
         return stackView
     }()
 
-    internal lazy var nameTextField: UITextField = {
+    lazy var nameTextField: UITextField = {
         let textField = UITextField()
         textField.placeholder = "Flow Name"
         textField.key = "name"
@@ -37,7 +36,7 @@ class FormViewController: UIViewController {
         return textField
     }()
 
-    internal lazy var emailTextField: UITextField = {
+    lazy var emailTextField: UITextField = {
         let textField = UITextField()
         textField.placeholder = "Email"
         textField.key = "email"
@@ -45,7 +44,7 @@ class FormViewController: UIViewController {
         return textField
     }()
 
-    internal lazy var submitButton: UIButton = {
+    lazy var submitButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Submit", for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 12, weight: .bold)
@@ -57,7 +56,7 @@ class FormViewController: UIViewController {
         button.addTarget(self, action: #selector(retrieveDataDelegate), for: .touchUpInside)
         return button
     }()
-    
+
     private lazy var recordButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Record", for: .normal)
@@ -87,16 +86,16 @@ class FormViewController: UIViewController {
             stackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             stackView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
             stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16)
+            stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
         ])
-        
+
         dataDelegate = presenter
         nameTextField.validateEditedField(target: self, action: #selector(validateTextFields(_:)))
         emailTextField.validateEditedField(target: self, action: #selector(validateTextFields(_:)))
     }
-    
+
     @objc func toggleButtonAction() {
-        presenter.recordingToggle{ success in
+        presenter.recordingToggle { success in
             if success {
                 print("worked")
             } else {
@@ -104,10 +103,10 @@ class FormViewController: UIViewController {
             }
         }
     }
-    
+
     @objc func retrieveDataDelegate() {
         let textFields = [nameTextField, emailTextField] // Add new text fields here as needed
-        
+
         // Use the data retrieval protocol to handle each text field
         for textField in textFields {
             if let success = dataDelegate?.retrieveData(textField), success {
@@ -117,8 +116,8 @@ class FormViewController: UIViewController {
             }
         }
     }
-    
-    //TODO: make sure that validation is done when all fields input are completed
+
+    // TODO: make sure that validation is done when all fields input are completed
     @objc func validateTextFields(_ textfield: UITextField) {
         if textfield.text != "" {
             submitButton.isEnabled = true

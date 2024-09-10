@@ -9,19 +9,18 @@ import Foundation
 import UIKit
 
 class ScreenshotPresenter {
-    
     typealias RecordCompletion = (Bool) -> Void
     var notificationCenter = NotificationCenter.default
     var observerFlag: Bool?
     private weak var viewController: FormViewController?
     var handler: ScreenshotHandler?
 
-    //TODO: Fix this issue where @objc selector is being unrecognized when in presenter class.
+    // TODO: Fix this issue where @objc selector is being unrecognized when in presenter class.
     @objc func toggleRecordButtonAction() {
-        recordingToggle{ success in
+        recordingToggle { success in
             if success {
                 print("worked")
-                //have submit completion here as well
+                // have submit completion here as well
             } else {
                 print("no work")
             }
@@ -46,7 +45,7 @@ class ScreenshotPresenter {
             print("Started recording toggle")
             observerFlag = true
         }
-        
+
         completion(true)
     }
 }
@@ -58,7 +57,7 @@ extension ScreenshotPresenter: DataRetrieval {
         }
         var key: String
         var data: String
-        
+
         key = textfield.key
         data = textfield.text ?? ""
 

@@ -8,9 +8,7 @@
 import Foundation
 import UIKit
 
-
 class Components: UIViewController {
-    
     lazy var textBar: UITextField = {
         textBar = UITextField()
         textBar.placeholder = "Type here..."
@@ -18,7 +16,7 @@ class Components: UIViewController {
         textBar.backgroundColor = .gray
         return textBar
     }()
-    
+
     lazy var button: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Play", for: .normal)
@@ -32,7 +30,7 @@ class Components: UIViewController {
 }
 
 extension UITextView: KeyAssociable {
-    private struct AssociatedKeys {
+    private enum AssociatedKeys {
         static var key = "key"
     }
 
@@ -47,10 +45,10 @@ extension UITextView: KeyAssociable {
 }
 
 extension UITextField: KeyAssociable {
-    private struct AssociatedKeys {
+    private enum AssociatedKeys {
         static var key = "key"
     }
-    
+
     var key: String {
         get {
             return objc_getAssociatedObject(self, &AssociatedKeys.key) as? String ?? ""
@@ -59,8 +57,8 @@ extension UITextField: KeyAssociable {
             objc_setAssociatedObject(self, &AssociatedKeys.key, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
-    
+
     func validateEditedField(target: Any?, action: Selector) {
-        self.addTarget(target, action: action, for: UIControl.Event.editingChanged)
+        addTarget(target, action: action, for: UIControl.Event.editingChanged)
     }
 }

@@ -9,11 +9,9 @@ import UIKit
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
     var window: UIWindow?
 
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        
+    func application(_: UIApplication, didFinishLaunchingWithOptions _: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         let mainViewController = FormViewController()
         let navigationController = UINavigationController(rootViewController: mainViewController)
 
@@ -24,5 +22,3 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
 }
-
-

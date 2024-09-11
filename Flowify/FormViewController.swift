@@ -107,13 +107,10 @@ class FormViewController: UIViewController {
     @objc func retrieveDataDelegate() {
         let textFields = [nameTextField, emailTextField] // Add new text fields here as needed
 
-        // Use the data retrieval protocol to handle each text field
-        for textField in textFields {
-            if let success = dataDelegate?.retrieveData(from: textFields), success {
-                print("Data retrieval successful for \(textField.placeholder ?? "unknown field")")
-            } else {
-                print("Data retrieval failed for \(textField.placeholder ?? "unknown field")")
-            }
+        if let success = dataDelegate?.retrieveData(from: textFields), success {
+            print("Data retrieval successful for all fields")
+        } else {
+            print("Data retrieval failed for one or all fields")
         }
     }
 

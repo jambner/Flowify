@@ -7,178 +7,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "77066888-8BC3-4C4D-9C0D-69F60C4A18AA"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Flowify/ScreenshotPresenter.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "43"
-            endingLineNumber = "43"
-            landmarkName = "recordingToggle(completion:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "85BAB155-AB6A-456B-B89F-92860230743A"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "FlowifyTests/ScreenshotPresenterTests.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "45"
-            endingLineNumber = "45"
-            landmarkName = "testRecordingToggle_AlreadyRecording()"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "85BAB155-AB6A-456B-B89F-92860230743A - 7decabb9c65ae01c"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "FlowifyTests.ScreenshotPresenterTests.testRecordingToggle_AlreadyRecording() -&gt; ()"
-                  moduleName = "FlowifyTests"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/jambo/Desktop/projects/flowify/Flowify/FlowifyTests/ScreenshotPresenterTests.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "75"
-                  endingLineNumber = "75"
-                  offsetFromSymbolStart = "215">
-               </Location>
-               <Location
-                  uuid = "85BAB155-AB6A-456B-B89F-92860230743A - 7decabb9c65affb0"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "FlowifyTests.ScreenshotPresenterTests.testRecordingToggle_AlreadyRecording() -&gt; ()"
-                  moduleName = "FlowifyTests"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/jambo/Desktop/projects/flowify/Flowify/FlowifyTests/ScreenshotPresenterTests.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "47"
-                  endingLineNumber = "47"
-                  offsetFromSymbolStart = "215">
-               </Location>
-               <Location
-                  uuid = "85BAB155-AB6A-456B-B89F-92860230743A - 7decabb9c65afc72"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "FlowifyTests.ScreenshotPresenterTests.testRecordingToggle_AlreadyRecording() -&gt; ()"
-                  moduleName = "FlowifyTests"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/jambo/Desktop/projects/flowify/Flowify/FlowifyTests/ScreenshotPresenterTests.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "45"
-                  endingLineNumber = "45"
-                  offsetFromSymbolStart = "215">
-               </Location>
-               <Location
-                  uuid = "85BAB155-AB6A-456B-B89F-92860230743A - f40264a68e55ece6"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.Bool) -&gt; () in FlowifyTests.ScreenshotPresenterTests.testRecordingToggle_AlreadyRecording() -&gt; ()"
-                  moduleName = "FlowifyTests"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/jambo/Desktop/projects/flowify/Flowify/FlowifyTests/ScreenshotPresenterTests.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "45"
-                  endingLineNumber = "45"
-                  offsetFromSymbolStart = "100">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "4A802F93-CC61-41DD-9857-F5E1DA70C26B"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "FlowifyTests/ScreenshotPresenterTests.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "32"
-            endingLineNumber = "32"
-            landmarkName = "testRecordingToggle_StartsRecording()"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "4A802F93-CC61-41DD-9857-F5E1DA70C26B - acfa34b1260802db"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.Bool) -&gt; () in FlowifyTests.ScreenshotPresenterTests.testRecordingToggle_StartsRecording() -&gt; ()"
-                  moduleName = "FlowifyTests"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/jambo/Desktop/projects/flowify/Flowify/FlowifyTests/ScreenshotPresenterTests.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "60"
-                  endingLineNumber = "60"
-                  offsetFromSymbolStart = "133">
-               </Location>
-               <Location
-                  uuid = "4A802F93-CC61-41DD-9857-F5E1DA70C26B - acfa34b1260802db"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.Bool) -&gt; () in FlowifyTests.ScreenshotPresenterTests.testRecordingToggle_StartsRecording() -&gt; ()"
-                  moduleName = "FlowifyTests"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/jambo/Desktop/projects/flowify/Flowify/FlowifyTests/ScreenshotPresenterTests.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "60"
-                  endingLineNumber = "60"
-                  offsetFromSymbolStart = "100">
-               </Location>
-               <Location
-                  uuid = "4A802F93-CC61-41DD-9857-F5E1DA70C26B - acfa34b12608013f"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.Bool) -&gt; () in FlowifyTests.ScreenshotPresenterTests.testRecordingToggle_StartsRecording() -&gt; ()"
-                  moduleName = "FlowifyTests"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/jambo/Desktop/projects/flowify/Flowify/FlowifyTests/ScreenshotPresenterTests.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "32"
-                  endingLineNumber = "32"
-                  offsetFromSymbolStart = "100">
-               </Location>
-               <Location
-                  uuid = "4A802F93-CC61-41DD-9857-F5E1DA70C26B - acfa34b12608013f"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.Bool) -&gt; () in FlowifyTests.ScreenshotPresenterTests.testRecordingToggle_StartsRecording() -&gt; ()"
-                  moduleName = "FlowifyTests"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/jambo/Desktop/projects/flowify/Flowify/FlowifyTests/ScreenshotPresenterTests.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "32"
-                  endingLineNumber = "32"
-                  offsetFromSymbolStart = "163">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "6F5884FA-129C-4A96-BBA4-314D7C093338"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
@@ -186,8 +14,8 @@
             filePath = "Flowify/ScreenshotHandler.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "19"
-            endingLineNumber = "19"
+            startingLineNumber = "20"
+            endingLineNumber = "20"
             landmarkName = "handleScreenshot()"
             landmarkType = "7">
          </BreakpointContent>
@@ -216,10 +44,26 @@
             filePath = "Flowify/ScreenshotHandler.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "18"
-            endingLineNumber = "18"
+            startingLineNumber = "19"
+            endingLineNumber = "19"
             landmarkName = "handleScreenshot()"
             landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "4B215747-E6E7-43E3-AB58-A4BE9A6E6378"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Flowify/ScreenshotHandler.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "12"
+            endingLineNumber = "12"
+            landmarkName = "ScreenshotHandler"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

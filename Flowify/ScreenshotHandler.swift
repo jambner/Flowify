@@ -11,8 +11,9 @@ class ScreenshotHandler {
     // FormData
     private(set) var formData: [String: String] = [:]
 
-    func updateData(formData _: [String: String]) {
-        print("success")
+    func updateData(formData: [String: String]) {
+        let data = formData
+        self.formData = data
     }
 
     @objc func handleScreenshot() {

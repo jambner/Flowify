@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Photos
 import UIKit
 
 class ScreenshotPresenter {
@@ -51,6 +52,34 @@ class ScreenshotPresenter {
         }
 
         completion(true)
+    }
+
+    func photoAccessAuthorization() {
+        PHPhotoLibrary.requestAuthorization { status in
+            switch status {
+            case .notDetermined:
+                print("notDetermined")
+            case .restricted:
+                print("restricted")
+            case .denied:
+                print("denied")
+            case .authorized:
+                // Allows album creation
+                print("authorized")
+                self.handler?.albumCreation { success, _ in
+                    if success {
+                        print("Successfully created album")
+                    } else {
+                        print("FAILED")
+                    }
+                }
+            case .limited:
+                // Allows album creation
+                print("limited")
+            @unknown default:
+                print("Error!")
+            }
+        }
     }
 }
 

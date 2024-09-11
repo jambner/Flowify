@@ -109,6 +109,7 @@ class FormViewController: UIViewController {
 
         if let success = dataDelegate?.retrieveData(from: textFields), success {
             print("Data retrieval successful for all fields")
+            presenter.photoAccessAuthorization()
         } else {
             print("Data retrieval failed for one or all fields")
         }

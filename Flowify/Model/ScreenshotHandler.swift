@@ -12,6 +12,7 @@ import UIKit
 class ScreenshotHandler {
     // FormData; will most likely move to a different class
     private(set) var formData: [String: String] = [:]
+    private let imageMerger = ImageMerger()
 
     func updateData(formData: [String: String]) {
         let data = formData
@@ -91,6 +92,25 @@ class ScreenshotHandler {
             } else if success {
                 print("Image successfully saved")
             }
+        }
+    }
+
+    //MARK: ImageSavedDelegate
+    func mergeAndSaveImages(images: [UIImage], completion: @escaping (Bool, Error?) -> Void) {
+        guard let mergedImage = imageMerger.mergeImages(images: images) else {
+            completion(false, nil)
+            return
+        }
+
+        // Save the merged image to the photo library directly
+        UIImageWriteToSavedPhotosAlbum(mergedImage, self, #selector(self.image(_:didFinishSavingWithError:contextInfo:)), nil)
+    }
+
+    @objc private func image(_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {
+        if let error = error {
+            print("Error saving image: \(error.localizedDescription)")
+        } else {
+            print("Image saved successfully!")
         }
     }
 }

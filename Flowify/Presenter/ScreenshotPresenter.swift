@@ -20,38 +20,31 @@ class ScreenshotPresenter {
         handler = ScreenshotHandler()
     }
 
-    // TODO: Fix this issue where @objc selector is being unrecognized when in presenter class.
-    @objc func toggleRecordButtonAction() {
-        recordingToggle { success in
-            if success {
-                print("worked")
-                // have submit completion here as well
-            } else {
-                print("no work")
-            }
-        }
-    }
-
     // Completion handler to make sure the recording is starting or ending
     func recordingToggle(completion: @escaping RecordCompletion) {
+        let notificationName = UIApplication.userDidTakeScreenshotNotification
         if let existingObserver = observerFlag {
             if existingObserver {
-                notificationCenter.removeObserver(self, name: UIApplication.userDidTakeScreenshotNotification, object: nil)
+                notificationCenter.removeObserver(self, name: notificationName, object: nil)
                 print("Stopped recording toggle")
                 observerFlag = false
             } else {
-                notificationCenter.addObserver(self, selector: #selector(handler?.handleScreenshot), name: UIApplication.userDidTakeScreenshotNotification, object: nil)
+                notificationCenter.addObserver(self, selector: #selector(handleScreenshotSelector(_:)), name: notificationName, object: nil)
                 print("Started recording toggle")
                 observerFlag = true
             }
         } else {
             // First time toggle
-            notificationCenter.addObserver(self, selector: #selector(handler?.handleScreenshot), name: UIApplication.userDidTakeScreenshotNotification, object: nil)
+            notificationCenter.addObserver(self, selector: #selector(handleScreenshotSelector(_:)), name: notificationName, object: nil)
             print("Started recording toggle")
             observerFlag = true
         }
 
         completion(true)
+    }
+    
+    @objc func handleScreenshotSelector(_ notification: NSNotification) {
+        handler?.handleScreenshot(notification: notification)
     }
 
     func photoAccessAuthorization() {

@@ -27,6 +27,19 @@ class Components: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
+    
+    lazy var cardContainer: UIView = {
+        let card = UIView()
+        card.backgroundColor = .white
+        card.translatesAutoresizingMaskIntoConstraints = false
+        card.layer.shadowColor = UIColor.black.cgColor
+        card.layer.shadowOpacity = 0.2
+        card.layer.shadowOffset = CGSize(width: 0, height: 2)
+        card.layer.shadowRadius = 4
+        card.layer.cornerRadius = 10
+        
+        return card
+    }()
 }
 
 extension UITextView: KeyAssociable {

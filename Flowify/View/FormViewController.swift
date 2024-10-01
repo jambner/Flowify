@@ -17,6 +17,7 @@ protocol KeyAssociable {
 
 class FormViewController: UIViewController {
     private var presenter = ScreenshotPresenter()
+    private let imagePicker = ImagePicker()
 
     var dataDelegate: DataRetrieval!
 
@@ -69,6 +70,20 @@ class FormViewController: UIViewController {
         button.addTarget(self, action: #selector(toggleButtonAction), for: .touchUpInside)
         return button
     }()
+    
+    // For already existing screenshots
+    private lazy var mergeLink: UILabel = {
+        let label = UILabel()
+        label.text = "Already have screenshots? Merge"
+        label.font = UIFont.systemFont(ofSize: 12, weight: .bold)
+        label.textColor = .systemBlue
+        label.isUserInteractionEnabled = true
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(mergeAction))
+        label.addGestureRecognizer(tapGesture)
+        
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -79,6 +94,7 @@ class FormViewController: UIViewController {
         stackView.addArrangedSubview(emailTextField)
         stackView.addArrangedSubview(submitButton)
         stackView.addArrangedSubview(recordButton)
+        stackView.addArrangedSubview(mergeLink)
 
         view.addSubview(stackView)
 
@@ -113,6 +129,10 @@ class FormViewController: UIViewController {
         } else {
             print("Data retrieval failed for one or all fields")
         }
+    }
+    
+    @objc func mergeAction() {
+        imagePicker.present(from: self)
     }
 
     // TODO: make sure that validation is done when all fields input are completed

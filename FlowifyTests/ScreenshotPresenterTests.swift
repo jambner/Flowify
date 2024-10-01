@@ -65,6 +65,27 @@ class ScreenshotPresenterTests: XCTestCase {
         wait(for: [expectation], timeout: 1.0)
     }
 
+    // TODO: Complete testing for photoaccess authorization
+    func testPhotoAccess_Authorized() {
+        let expectation = XCTestExpectation(description: "PhotosPermissions is granted")
+        
+        wait(for: [expectation], timeout: 1.0)
+    }
+    
+    func testPhotoAccess_Limited() {
+        let expectation = XCTestExpectation(description: "PhotosPermission is limited")
+        
+        wait(for: [expectation], timeout: 1.0)
+    }
+    
+    func testPhotoAccess_Denied() {
+        let expectation = XCTestExpectation(description: "PhotosPermissions is denied")
+        
+        sut?.photoAccessAuthorization()
+        
+        wait(for: [expectation], timeout: 1.0)
+    }
+
     func testRetrieveData_Success() {
         let mockArray = [MockData().textField1, MockData().textField2]
 

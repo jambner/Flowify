@@ -1,5 +1,5 @@
 //
-//  ScreenshotPresenter.swift
+//  FormPresenter.swift
 //  Flowify
 //
 //  Created by Ramon Martinez on 8/31/24.
@@ -9,42 +9,38 @@ import Foundation
 import Photos
 import UIKit
 
-class ScreenshotPresenter {
+class FormPresenter {
     typealias RecordCompletion = (Bool) -> Void
-    var notificationCenter = NotificationCenter.default
     var observerFlag: Bool?
     private weak var viewController: FormViewController?
     var handler: ScreenshotHandler?
+    private var photoLibraryObserver: PhotoLibraryObserver?
 
     init() {
         handler = ScreenshotHandler()
+        photoLibraryObserver = PhotoLibraryObserver()
     }
 
     // Completion handler to make sure the recording is starting or ending
     func recordingToggle(completion: @escaping RecordCompletion) {
-        let notificationName = UIApplication.userDidTakeScreenshotNotification
         if let existingObserver = observerFlag {
             if existingObserver {
-                notificationCenter.removeObserver(self, name: notificationName, object: nil)
+                photoLibraryObserver?.stopObserving()
                 print("Stopped recording toggle")
                 observerFlag = false
             } else {
-                notificationCenter.addObserver(self, selector: #selector(handleScreenshotSelector(_:)), name: notificationName, object: nil)
+                photoLibraryObserver?.startObserving()
                 print("Started recording toggle")
                 observerFlag = true
             }
         } else {
             // First time toggle
-            notificationCenter.addObserver(self, selector: #selector(handleScreenshotSelector(_:)), name: notificationName, object: nil)
+            photoLibraryObserver?.startObserving()
             print("Started recording toggle")
             observerFlag = true
         }
 
         completion(true)
-    }
-    
-    @objc func handleScreenshotSelector(_ notification: NSNotification) {
-        handler?.handleScreenshot(notification: notification)
     }
 
     func photoAccessAuthorization() {
@@ -76,7 +72,7 @@ class ScreenshotPresenter {
     }
 }
 
-extension ScreenshotPresenter: DataRetrieval {
+extension FormPresenter: DataRetrieval {
     func retrieveData(from textfields: [UITextField]) -> Bool {
         var formData: [String: String] = [:]
 

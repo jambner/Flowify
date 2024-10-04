@@ -1,5 +1,5 @@
 //
-//  ScreenshotPresenterTests.swift
+//  FormPresenterTests.swift
 //  FlowifyTests
 //
 //  Created by Ramon Martinez on 9/9/24.
@@ -8,22 +8,19 @@
 @testable import Flowify
 import XCTest
 
-class ScreenshotPresenterTests: XCTestCase {
-    var sut: ScreenshotPresenter?
+class FormPresenterTests: XCTestCase {
+    var sut: FormPresenter?
     var handler: ScreenshotHandler?
-    var notificationCenter: NotificationCenter!
 
     override func setUp() {
         super.setUp()
-        sut = ScreenshotPresenter()
-        notificationCenter = NotificationCenter.default
+        sut = FormPresenter()
         handler = ScreenshotHandler()
         sut?.handler = handler
     }
 
     override func tearDown() {
         sut = nil
-        notificationCenter = nil
         super.tearDown()
     }
 

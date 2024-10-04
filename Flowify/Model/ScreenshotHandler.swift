@@ -39,37 +39,26 @@ class ScreenshotHandler {
         }
     }
 
-    @objc func handleScreenshot(notification _: NSNotification) {
-        let fetchOptions = PHFetchOptions()
-        fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
-        fetchOptions.predicate = NSPredicate(format: "mediaType = %d", PHAssetMediaType.image.rawValue)
-
-        let fetchResult = PHAsset.fetchAssets(with: fetchOptions)
-        guard let lastScreenshotAsset = fetchResult.firstObject else {
-            print("No screenshots found")
-            return
+    func processScreenshots(assets: [PHAsset]) {
+        for asset in assets {
+            processScreenshot(asset: asset)
         }
-
-        // Process the screenshot
-        processScreenshot(asset: lastScreenshotAsset)
     }
 
     private func processScreenshot(asset: PHAsset) {
         let options = PHImageRequestOptions()
-        var SSID = 0
         options.isSynchronous = true
         PHImageManager.default().requestImageData(for: asset, options: options) { data, _, _, _ in
             guard let imageData = data else {
-                print("Failed to get image data")
+                print("Failed to get image data for asset: \(asset)")
                 return
             }
 
-            let newFileName = "Screenshot_\(SSID += 1).png"
-            self.copyImageIntoAlbum(imageData: imageData, fileName: newFileName, originalAsset: asset)
+            self.copyImageIntoAlbum(imageData: imageData, originalAsset: asset)
         }
     }
 
-    private func copyImageIntoAlbum(imageData: Data, fileName _: String, originalAsset _: PHAsset) {
+    private func copyImageIntoAlbum(imageData: Data, originalAsset _: PHAsset) {
         PHPhotoLibrary.shared().performChanges({
             // Fetch the album where we want to save the new image
             let nameData = self.dictionaryLookUp(forKey: "name", in: self.formData)
@@ -90,12 +79,12 @@ class ScreenshotHandler {
             if let error = error {
                 print("Error saving image: \(error.localizedDescription)")
             } else if success {
-                print("Image successfully saved")
+                print("Image successfully saved to album.")
             }
         }
     }
 
-    //MARK: ImageSavedDelegate
+    // MARK: ImageSavedDelegate
     func mergeAndSaveImages(images: [UIImage], completion: @escaping (Bool, Error?) -> Void) {
         guard let mergedImage = imageMerger.mergeImages(images: images) else {
             completion(false, nil)

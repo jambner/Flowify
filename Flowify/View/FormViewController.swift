@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Photos
 
 protocol DataRetrieval {
     func retrieveData(from textfields: [UITextField]) -> Bool
@@ -15,9 +16,10 @@ protocol KeyAssociable {
     var key: String? { get }
 }
 
-class FormViewController: UIViewController {
-    private var presenter = ScreenshotPresenter()
+class FormViewController: UIViewController, ImagePickerDelegate {
+    private var presenter = FormPresenter()
     private let imagePicker = ImagePicker()
+    private var selectedImages: [UIImage] = []
 
     var dataDelegate: DataRetrieval!
 
@@ -32,7 +34,6 @@ class FormViewController: UIViewController {
     lazy var nameTextField: UITextField = {
         let textField = UITextField()
         textField.placeholder = "Flow Name"
-        textField.key = "name"
         textField.borderStyle = .roundedRect
         return textField
     }()
@@ -40,7 +41,6 @@ class FormViewController: UIViewController {
     lazy var emailTextField: UITextField = {
         let textField = UITextField()
         textField.placeholder = "Email"
-        textField.key = "email"
         textField.borderStyle = .roundedRect
         return textField
     }()
@@ -71,7 +71,6 @@ class FormViewController: UIViewController {
         return button
     }()
     
-    // For already existing screenshots
     private lazy var mergeLink: UILabel = {
         let label = UILabel()
         label.text = "Already have screenshots? Merge"
@@ -80,7 +79,6 @@ class FormViewController: UIViewController {
         label.isUserInteractionEnabled = true
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(mergeAction))
         label.addGestureRecognizer(tapGesture)
-        
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -108,6 +106,9 @@ class FormViewController: UIViewController {
         dataDelegate = presenter
         nameTextField.validateEditedField(target: self, action: #selector(validateTextFields(_:)))
         emailTextField.validateEditedField(target: self, action: #selector(validateTextFields(_:)))
+
+        // Set the image picker delegate
+        imagePicker.delegate = self
     }
 
     @objc func toggleButtonAction() {
@@ -135,7 +136,28 @@ class FormViewController: UIViewController {
         imagePicker.present(from: self)
     }
 
-    // TODO: make sure that validation is done when all fields input are completed
+    // ImagePickerDelegate method
+    func didSelectImages(images: [UIImage]) {
+        selectedImages = images
+        let imageMerger = ImageMerger()
+        let mergedImage = imageMerger.mergeImages(images: selectedImages)
+        saveImageToPhotoLibrary(mergedImage)
+    }
+
+    private func saveImageToPhotoLibrary(_ image: UIImage?) {
+        guard let image = image else { return }
+
+        PHPhotoLibrary.shared().performChanges({
+            PHAssetChangeRequest.creationRequestForAsset(from: image)
+        }) { success, error in
+            if success {
+                print("Image saved successfully.")
+            } else {
+                print("Error saving image: \(error?.localizedDescription ?? "Unknown error")")
+            }
+        }
+    }
+
     @objc func validateTextFields(_ textfield: UITextField) {
         if textfield.text != "" {
             submitButton.isEnabled = true

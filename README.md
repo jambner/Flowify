@@ -1,6 +1,6 @@
 # <img src="Flowify/Assets.xcassets/flowify.imageset/flowify.png" alt="Flowify" width="30" height="30"> Flowify
 
-UIKit/Swift
+Swift
 
 ## Overview
 This application streamlines the process of capturing, organizing and validating screenshots for QA flows. it helps QA engineers to systematic capture and manage screenshots while testing application flows. the tool significantly reduce manual effort.

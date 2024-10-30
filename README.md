@@ -2,28 +2,108 @@
 
 UIKit/Swift
 
-## Inital SS Flowchart:
-<img src="Flowify/Assets.xcassets/flowify-flowchart.imageset/flowify-flowchart.svg" alt="Flowify">
+## Overview
+This application streamlines the process of capturing, organizing and validating screenshots for QA flows. it helps QA engineers to systematic capture and manage screenshots while testing application flows. the tool significantly reduce manual effort.
+Process Flow
+Initial Checks and Setup
 
-## Filter through selection Flowchart:
+The app first verifys if user completed required form inputs
+
+If form is incomplete, button functionality is disabled
+Form data is stored in SessionData for future reference
+data persistence is critical for workflow
 
 
-## Responsibilities in MVP
 
-### Model:
-#### Core Business Logic:
-- Storing and Managing Screenshots: Keep track of the screenshots and handle their storage.
-- Merging Screenshots: Implement the logic to merge the screenshots into a single image. This might involve using CoreGraphics or similar frameworks to perform the image rendering.
-- Saving Results: Handle saving the final image to a file or directory, and manage any associated data.
+## Album Creation and Screenshot Process
 
-### Presenter:
-#### Business Logic Coordination:
-- Handling User Actions: Respond to user actions (e.g., form submission) and trigger the appropriate methods in the Model.
-- Processing Workflow: Coordinate the sequence of operations, such as capturing screenshots, merging them, and notifying the View once the process is complete.
-- Update the View: Provide status updates or results to the View, such as showing the merged image or indicating completion.
+When user starts new flow:
 
-### View:
-#### User Interface:
-- Displaying the Form: Show the form for user input and handle the form submission.
-- Showing Feedback: Display progress updates, final results, or error messages.
-- Initiate Actions: Trigger the Presenter when the user performs actions like submitting the form.
+System creates new Album for storing screenshots
+FormData is stored in system memory
+memory allocation might effect performance
+
+
+## Screenshot Capture Process:
+
+User manually capture screenshots during testing
+Application records each screenshot in sequence
+Process continue until user indicates completion
+Screenshots are temporary stored in system memory
+IMPORTANT: due to API limitations, system must create new assets rather than moving existing files
+each screenshot requires individual API call for creation
+
+
+
+## File Management
+
+After screenshot capture completion:
+
+App creates new assets in designated Album using API calls
+Each screenshot is renamed following pattern: "flowName_X"
+(where X represents the sequence number)
+original files remain in temporary storage
+deletion of temporary files must be handled seperately
+
+
+
+## Validation and Processing
+
+Screenshot Validation:
+
+System compares actual screenshots vs recorded session array
+Ensures all required screens were captured
+Validates screenshot sequence matches expected flow
+validation may fail if API calls timeout
+
+
+## Image Processing:
+
+System checks if flow contains more than 5 images
+If yes: Breaks down into sets of 5 screenshots
+If no: Proceeds to single image processing
+processing time varies based on network speed
+
+
+
+# Final Steps
+
+Coreographic Processing:
+
+System renders new image flow
+Processed images are sent to designated Album thru API
+Process completes with successful storage
+multiple API calls may cause latency
+
+
+
+## Common Issues and Troubleshooting
+
+Missing screenshots: Verify the complete flow was captured
+Naming errors: Ensure flowName is properly defined before starting
+Storage issues: Confirm sufficient space in destination Album
+API timeouts: Check network connection
+Duplicate assets: May occur due to failed API calls
+Memory leaks: Temporary files not properly cleaned up
+
+## Known API Limitations
+
+Cannot move existing assets between folders
+Must create new asset for each screenshot
+API calls required for each individual file
+Rate limiting may cause delays
+Timeout issues common with large files
+No batch processing available
+Asset creation may fail silently
+API doesn't support parallel processing
+Limited error reporting
+No automatic cleanup of failed assets
+
+# Limitations
+
+Processing time increases with number of images
+Network speed affects performance
+Temp storage must be monitored
+No automatic error recovery
+Manual intervention required for failures
+Limited to single flow processing

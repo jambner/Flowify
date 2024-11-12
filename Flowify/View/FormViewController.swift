@@ -34,6 +34,7 @@ class FormViewController: UIViewController, ImagePickerDelegate {
     lazy var nameTextField: UITextField = {
         let textField = UITextField()
         textField.placeholder = "Flow Name"
+        textField.key = "name"
         textField.borderStyle = .roundedRect
         return textField
     }()
@@ -41,6 +42,7 @@ class FormViewController: UIViewController, ImagePickerDelegate {
     lazy var emailTextField: UITextField = {
         let textField = UITextField()
         textField.placeholder = "Email"
+        textField.key = "email"
         textField.borderStyle = .roundedRect
         return textField
     }()

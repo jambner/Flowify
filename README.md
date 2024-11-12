@@ -4,4 +4,4 @@ Swift
 
 ## Flowchart
 
-<img src="Flowify/Assets.xcassets/flowify-flowchart.imageset/flowify-flowchart.svg" alt="Flowify">
+<img src="Flowify/Assets.xcassets/flowify-flowchart.imageset/flowify.svg" alt="Flowify">

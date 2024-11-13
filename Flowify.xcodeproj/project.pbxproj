@@ -21,6 +21,7 @@
 		598A29112C9F8F0800D9FFB0 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 598A29102C9F8EFA00D9FFB0 /* CardView.swift */; };
 		59CAC5532C83E0E400977E6D /* ScreenshotHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59CAC5522C83E0E400977E6D /* ScreenshotHandler.swift */; };
 		59CAC5552C83E2C600977E6D /* FormPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59CAC5542C83E2C600977E6D /* FormPresenter.swift */; };
+		59D074272CE510020097F260 /* AlbumManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59D074262CE50FFD0097F260 /* AlbumManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,7 @@
 		598A29102C9F8EFA00D9FFB0 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		59CAC5522C83E0E400977E6D /* ScreenshotHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenshotHandler.swift; sourceTree = "<group>"; };
 		59CAC5542C83E2C600977E6D /* FormPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormPresenter.swift; sourceTree = "<group>"; };
+		59D074262CE50FFD0097F260 /* AlbumManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,6 +127,7 @@
 		597B0C4D2CA4F0C900F565CA /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				59D074262CE50FFD0097F260 /* AlbumManager.swift */,
 				597B0C552CAE32FC00F565CA /* DataModel.swift */,
 				59CAC5522C83E0E400977E6D /* ScreenshotHandler.swift */,
 			);
@@ -307,6 +310,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				598A290D2C9EBD5800D9FFB0 /* ImagePicker.swift in Sources */,
+				59D074272CE510020097F260 /* AlbumManager.swift in Sources */,
 				598A29112C9F8F0800D9FFB0 /* CardView.swift in Sources */,
 				5964EFB92C431FD200C2D8DA /* FormViewController.swift in Sources */,
 				597B0C542CAE30B400F565CA /* PhotoLibraryObserver.swift in Sources */,

@@ -13,27 +13,22 @@ class ScreenshotHandler: NSObject {
     private(set) var formData: [String: String] = [:]
     private let imageMerger = ImageMerger()
     private var processedAssets = Set<String>()
-    
+
     override init() {
         super.init()
-        loadProcessedAssets()  // Load previously processed assets
     }
-    
+
     func updateData(formData: [String: String]) {
         self.formData = formData
     }
-    
-    private func dictionaryLookUp(forKey key: String, in dictionary: [String: String]) -> String {
+
+    func dictionaryLookUp(forKey key: String, in dictionary: [String: String]) -> String {
         return dictionary[key] ?? ""
     }
     
     func albumCreation(completion: @escaping (Bool, Error?) -> Void) {
         let nameData = dictionaryLookUp(forKey: "name", in: formData)
-        guard !nameData.isEmpty else {
-            completion(false, NSError(domain: "ScreenshotHandler", code: -1, userInfo: [NSLocalizedDescriptionKey: "Album name is empty"]))
-            return
-        }
-        
+
         PHPhotoLibrary.shared().performChanges({
             let options = PHFetchOptions()
             options.predicate = NSPredicate(format: "title = %@", nameData)
@@ -48,7 +43,7 @@ class ScreenshotHandler: NSObject {
             completion(success, error)
         }
     }
-    
+
     func processScreenshots(assets: [PHAsset]) {
         let nameData = dictionaryLookUp(forKey: "name", in: formData)
         let fetchOptions = PHFetchOptions()
@@ -58,20 +53,18 @@ class ScreenshotHandler: NSObject {
             print("Target album not found")
             return
         }
-        
-        // First, get all assets in the album for merging
+    
         let albumAssets = PHAsset.fetchAssets(in: album, options: nil)
         loadImagesFromAlbum(albumAssets) { [weak self] images in
             if !images.isEmpty {
-                // This will trigger merging only after processing all assets
                 print("Images loaded from album, waiting to merge.")
             }
         }
-        
+    
         // Process new assets
         processNewAssets(assets, to: album)
     }
-    
+
     func mergeImagesAfterProcessing(assets: [PHAsset]) {
         // Once new assets have been processed, perform image merging
         let nameData = dictionaryLookUp(forKey: "name", in: formData)
@@ -82,7 +75,7 @@ class ScreenshotHandler: NSObject {
             print("Target album not found for merging.")
             return
         }
-        
+
         // Load images for merging
         let albumAssets = PHAsset.fetchAssets(in: album, options: nil)
         loadImagesFromAlbum(albumAssets) { [weak self] images in
@@ -106,7 +99,7 @@ class ScreenshotHandler: NSObject {
         albumAssets.enumerateObjects { asset, _, _ in
             existingAssetIds.insert(asset.localIdentifier)
         }
-        
+
         let newAssets = assets.filter { asset in
             let isNew = !existingAssetIds.contains(asset.localIdentifier) && !processedAssets.contains(asset.localIdentifier)
             if isNew {
@@ -114,7 +107,7 @@ class ScreenshotHandler: NSObject {
             }
             return isNew
         }
-        
+
         if newAssets.isEmpty {
             print("No new assets to process.")
         } else {
@@ -122,8 +115,8 @@ class ScreenshotHandler: NSObject {
             processBatch(assets: newAssets, to: album)
         }
     }
-    
-    private func loadImagesFromAlbum(_ assets: PHFetchResult<PHAsset>, completion: @escaping ([UIImage]) -> Void) {
+
+    func loadImagesFromAlbum(_ assets: PHFetchResult<PHAsset>, completion: @escaping ([UIImage]) -> Void) {
         var images: [UIImage] = []
         let group = DispatchGroup()
         
@@ -150,7 +143,7 @@ class ScreenshotHandler: NSObject {
             completion(images)
         }
     }
-    
+
     private func processBatch(assets: [PHAsset], to album: PHAssetCollection) {
         let group = DispatchGroup()
         var processedImages: [(PHAsset, Data)] = []
@@ -164,23 +157,23 @@ class ScreenshotHandler: NSObject {
                 group.leave()
             }
         }
-        
+
         group.notify(queue: .main) {
             self.copyImagesIntoAlbum(processedImages: processedImages, album: album)
         }
     }
-    
+
     private func requestImageData(for asset: PHAsset, completion: @escaping (Data?) -> Void) {
         let options = PHImageRequestOptions()
         options.isNetworkAccessAllowed = true
         options.deliveryMode = .highQualityFormat
         options.isSynchronous = false
-        
+
         PHImageManager.default().requestImageData(for: asset, options: options) { data, _, _, _ in
             completion(data)
         }
     }
-    
+
     private func copyImagesIntoAlbum(processedImages: [(PHAsset, Data)], album: PHAssetCollection) {
         guard !processedImages.isEmpty else { return }
         
@@ -197,9 +190,9 @@ class ScreenshotHandler: NSObject {
                     }
                 }
             }
-            
+
             albumChangeRequest?.addAssets(assetPlaceholders as NSArray)
-            
+
         }) { success, error in
             if let error = error {
                 print("Error saving images: \(error.localizedDescription)")
@@ -208,7 +201,7 @@ class ScreenshotHandler: NSObject {
             }
         }
     }
-    
+
     // MARK: Image Merging
     func mergeAndSaveImages(images: [UIImage], completion: @escaping (Bool, Error?) -> Void) {
         guard let mergedImage = imageMerger.mergeImages(images: images) else {
@@ -218,28 +211,12 @@ class ScreenshotHandler: NSObject {
         UIImageWriteToSavedPhotosAlbum(mergedImage, self, #selector(self.image(_:didFinishSavingWithError:contextInfo:)), nil)
         completion(true, nil)
     }
-    
+
     @objc private func image(_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {
         if let error = error {
             print("Error saving merged image: \(error.localizedDescription)")
         } else {
             print("Merged image saved successfully!")
         }
-    }
-    
-    // MARK: - Persistence
-    private func loadProcessedAssets() {
-        if let savedAssets = UserDefaults.standard.array(forKey: "ProcessedAssets") as? [String] {
-            processedAssets = Set(savedAssets)
-        }
-    }
-    
-    private func saveProcessedAssets() {
-        UserDefaults.standard.set(Array(processedAssets), forKey: "ProcessedAssets")
-    }
-    
-    func addProcessedAsset(_ asset: PHAsset) {
-        processedAssets.insert(asset.localIdentifier)
-        saveProcessedAssets()  // Save to UserDefaults after each new processed asset
     }
 }

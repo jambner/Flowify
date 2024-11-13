@@ -18,7 +18,7 @@ class FormPresenter {
 
     init() {
         handler = ScreenshotHandler()
-        photoLibraryObserver = PhotoLibraryObserver()
+        photoLibraryObserver = PhotoLibraryObserver(albumName: "Dog")
     }
 
     // Completion handler to make sure the recording is starting or ending

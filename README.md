@@ -18,6 +18,9 @@ A Swift-based screenshot management tool that automatically captures, processes,
      - Less than 5: Processed as a single batch
 6. Final composite images are prepared and sent to the email for export
 
+## Technical Notes
+- Due to PhotoKit API limitations, screenshots are copied to albums rather than moved
+  
 ## TODO
 - [ ] Separating Album-related functions to `AlbumManager` Class
 - [ ] Start on the Email Manager to send to the email

@@ -25,7 +25,7 @@ class ScreenshotHandler: NSObject {
     func dictionaryLookUp(forKey key: String, in dictionary: [String: String]) -> String {
         return dictionary[key] ?? ""
     }
-    
+
     func albumCreation(completion: @escaping (Bool, Error?) -> Void) {
         let nameData = dictionaryLookUp(forKey: "name", in: formData)
 
@@ -48,19 +48,19 @@ class ScreenshotHandler: NSObject {
         let nameData = dictionaryLookUp(forKey: "name", in: formData)
         let fetchOptions = PHFetchOptions()
         fetchOptions.predicate = NSPredicate(format: "title = %@", nameData)
-        
+
         guard let album = PHAssetCollection.fetchAssetCollections(with: .album, subtype: .any, options: fetchOptions).firstObject else {
             print("Target album not found")
             return
         }
-    
+
         let albumAssets = PHAsset.fetchAssets(in: album, options: nil)
         loadImagesFromAlbum(albumAssets) { [weak self] images in
             if !images.isEmpty {
                 print("Images loaded from album, waiting to merge.")
             }
         }
-    
+
         // Process new assets
         processNewAssets(assets, to: album)
     }
@@ -70,7 +70,7 @@ class ScreenshotHandler: NSObject {
         let nameData = dictionaryLookUp(forKey: "name", in: formData)
         let fetchOptions = PHFetchOptions()
         fetchOptions.predicate = NSPredicate(format: "title = %@", nameData)
-        
+
         guard let album = PHAssetCollection.fetchAssetCollections(with: .album, subtype: .any, options: fetchOptions).firstObject else {
             print("Target album not found for merging.")
             return
@@ -92,7 +92,7 @@ class ScreenshotHandler: NSObject {
             }
         }
     }
-    
+
     private func processNewAssets(_ assets: [PHAsset], to album: PHAssetCollection) {
         let albumAssets = PHAsset.fetchAssets(in: album, options: nil)
         var existingAssetIds = Set<String>()
@@ -119,13 +119,13 @@ class ScreenshotHandler: NSObject {
     func loadImagesFromAlbum(_ assets: PHFetchResult<PHAsset>, completion: @escaping ([UIImage]) -> Void) {
         var images: [UIImage] = []
         let group = DispatchGroup()
-        
+
         assets.enumerateObjects { asset, _, _ in
             group.enter()
             let options = PHImageRequestOptions()
             options.deliveryMode = .highQualityFormat
             options.isSynchronous = false
-            
+
             PHImageManager.default().requestImage(
                 for: asset,
                 targetSize: PHImageManagerMaximumSize,
@@ -138,7 +138,7 @@ class ScreenshotHandler: NSObject {
                 group.leave()
             }
         }
-        
+
         group.notify(queue: .main) {
             completion(images)
         }
@@ -147,7 +147,7 @@ class ScreenshotHandler: NSObject {
     private func processBatch(assets: [PHAsset], to album: PHAssetCollection) {
         let group = DispatchGroup()
         var processedImages: [(PHAsset, Data)] = []
-        
+
         for asset in assets {
             group.enter()
             requestImageData(for: asset) { imageData in
@@ -176,11 +176,11 @@ class ScreenshotHandler: NSObject {
 
     private func copyImagesIntoAlbum(processedImages: [(PHAsset, Data)], album: PHAssetCollection) {
         guard !processedImages.isEmpty else { return }
-        
+
         PHPhotoLibrary.shared().performChanges({
             let albumChangeRequest = PHAssetCollectionChangeRequest(for: album)
             var assetPlaceholders: [PHObjectPlaceholder] = []
-            
+
             for (asset, imageData) in processedImages {
                 if let image = UIImage(data: imageData) {
                     let creationRequest = PHAssetCreationRequest.creationRequestForAsset(from: image)

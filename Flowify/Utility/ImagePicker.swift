@@ -5,7 +5,6 @@
 //  Created by jambo on 9/21/24.
 //
 
-
 import UIKit
 import Photos
 import PhotosUI
@@ -21,12 +20,12 @@ class ImagePicker: NSObject, PHPickerViewControllerDelegate {
         var configuration = PHPickerConfiguration(photoLibrary: .shared())
         configuration.selectionLimit = 0 // Allow multiple selection
         configuration.filter = .images
-        
+
         let picker = PHPickerViewController(configuration: configuration)
         picker.delegate = self
         viewController.present(picker, animated: true, completion: nil)
     }
-    
+
     // MARK: - PHPickerViewControllerDelegate
 
     func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {

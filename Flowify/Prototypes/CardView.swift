@@ -7,9 +7,4 @@
 
 import UIKit
 
-class CardView: UIView {
-
-
-    
-    
-}
+class CardView: UIView {}

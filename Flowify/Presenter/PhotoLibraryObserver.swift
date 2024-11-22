@@ -11,7 +11,7 @@ class PhotoLibraryObserver: NSObject, PHPhotoLibraryChangeObserver {
     private var isObserving = false
     private var screenshotHandler: ScreenshotHandler?
     private var processedAssets = Set<String>()
-    
+
     init(albumName: String) {
         super.init()
         self.screenshotHandler = ScreenshotHandler()
@@ -47,14 +47,14 @@ class PhotoLibraryObserver: NSObject, PHPhotoLibraryChangeObserver {
             self.handlePhotoLibraryChange()
         }
     }
-    
+
     private func handlePhotoLibraryChange() {
         let fetchOptions = PHFetchOptions()
         fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
         let fetchResult = PHAsset.fetchAssets(with: .image, options: fetchOptions)
-        
+
         var newScreenshots: [PHAsset] = []
-        
+
         fetchResult.enumerateObjects { asset, _, _ in
             if !self.processedAssets.contains(asset.localIdentifier) && self.isScreenshot(asset) {
                 newScreenshots.append(asset)
@@ -70,7 +70,7 @@ class PhotoLibraryObserver: NSObject, PHPhotoLibraryChangeObserver {
         print("New screenshots detected: \(newScreenshots.count)")
         screenshotHandler?.processScreenshots(assets: newScreenshots)
     }
-    
+
     private func isScreenshot(_ asset: PHAsset) -> Bool {
         return asset.mediaSubtypes.contains(.photoScreenshot)  // More reliable screenshot check
     }

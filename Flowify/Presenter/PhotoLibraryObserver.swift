@@ -2,20 +2,20 @@
 //  PhotoLibraryObserver.swift
 //  Flowify
 //
-//  Created by jambo on 10/2/24.
+//  Created by Ramon Martinez on 10/2/24.
 //
 
 import Photos
 
 class PhotoLibraryObserver: NSObject, PHPhotoLibraryChangeObserver {
     private var isObserving = false
+    private var dataModel = DataModel.shared
     private var screenshotHandler: ScreenshotHandler?
     private var processedAssets = Set<String>()
 
-    init(albumName: String) {
+    override init() {
         super.init()
         self.screenshotHandler = ScreenshotHandler()
-        self.screenshotHandler?.updateData(formData: ["name": albumName])
     }
 
     func startObserving() {
@@ -80,7 +80,7 @@ class PhotoLibraryObserver: NSObject, PHPhotoLibraryChangeObserver {
         screenshotHandler?.albumCreation { [weak self] success, error in
             if success {
                 // Fetch the assets from the album
-                let nameData = self?.screenshotHandler?.dictionaryLookUp(forKey: "name", in: self?.screenshotHandler?.formData ?? [:]) ?? ""
+                let nameData = self?.dataModel.dictionaryLookUp(forKey: "name", in: self?.dataModel.currentFormData ?? [:]) ?? ""
                 let fetchOptions = PHFetchOptions()
                 fetchOptions.predicate = NSPredicate(format: "title = %@", nameData)
                 

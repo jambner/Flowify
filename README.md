@@ -22,7 +22,7 @@ A Swift-based screenshot management tool that automatically captures, processes,
 - Due to PhotoKit API limitations, screenshots are copied to albums rather than moved
   
 ## TODO
-- [ ] Separating Album-related functions to `AlbumManager` Class
+- [x] Separating Album-related functions to `AlbumManager` Class
 - [ ] Start on the Email Manager to send to the email
 - [ ] Enforcing order to photo Array with timestamp
 - [ ] Separating array into bundles

@@ -14,11 +14,11 @@ class FormPresenter {
     var observerFlag: Bool?
     private weak var viewController: FormViewController?
     private var dataModel = DataModel.shared
-    var handler: ScreenshotHandler?
+    private var albumManager: AlbumManager?
     private var photoLibraryObserver: PhotoLibraryObserver?
 
     init() {
-        handler = ScreenshotHandler()
+        albumManager = AlbumManager()
         photoLibraryObserver = PhotoLibraryObserver()
     }
 
@@ -56,7 +56,7 @@ class FormPresenter {
             case .authorized:
                 // Allows album creation
                 print("authorized")
-                self.handler?.albumCreation { success, _ in
+                self.albumManager?.albumCreation { success, _ in
                     if success {
                         print("Successfully created album")
                     } else {

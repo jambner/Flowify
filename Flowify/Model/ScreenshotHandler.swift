@@ -10,7 +10,7 @@ import Photos
 import UIKit
 
 class ScreenshotHandler: NSObject {
-    private(set) var formData: [String: String] = [:]
+    private var dataModel = DataModel.shared
     private let imageMerger = ImageMerger()
     private var processedAssets = Set<String>()
 
@@ -18,16 +18,8 @@ class ScreenshotHandler: NSObject {
         super.init()
     }
 
-    func updateData(formData: [String: String]) {
-        self.formData = formData
-    }
-
-    func dictionaryLookUp(forKey key: String, in dictionary: [String: String]) -> String {
-        return dictionary[key] ?? ""
-    }
-
     func albumCreation(completion: @escaping (Bool, Error?) -> Void) {
-        let nameData = dictionaryLookUp(forKey: "name", in: formData)
+        let nameData = dataModel.dictionaryLookUp(forKey: "name", in: dataModel.currentFormData)
 
         PHPhotoLibrary.shared().performChanges({
             let options = PHFetchOptions()
@@ -45,7 +37,7 @@ class ScreenshotHandler: NSObject {
     }
 
     func processScreenshots(assets: [PHAsset]) {
-        let nameData = dictionaryLookUp(forKey: "name", in: formData)
+        let nameData = dataModel.dictionaryLookUp(forKey: "name", in: dataModel.currentFormData)
         let fetchOptions = PHFetchOptions()
         fetchOptions.predicate = NSPredicate(format: "title = %@", nameData)
 
@@ -67,7 +59,7 @@ class ScreenshotHandler: NSObject {
 
     func mergeImagesAfterProcessing(assets: [PHAsset]) {
         // Once new assets have been processed, perform image merging
-        let nameData = dictionaryLookUp(forKey: "name", in: formData)
+        let nameData = dataModel.dictionaryLookUp(forKey: "name", in: dataModel.currentFormData)
         let fetchOptions = PHFetchOptions()
         fetchOptions.predicate = NSPredicate(format: "title = %@", nameData)
 

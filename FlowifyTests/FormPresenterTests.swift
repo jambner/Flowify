@@ -10,18 +10,10 @@ import XCTest
 
 class FormPresenterTests: XCTestCase {
     var sut: FormPresenter?
-    var handler: ScreenshotHandler?
 
     override func setUp() {
         super.setUp()
         sut = FormPresenter()
-        handler = ScreenshotHandler()
-        sut?.handler = handler
-    }
-
-    override func tearDown() {
-        sut = nil
-        super.tearDown()
     }
 
     func testRecordingToggle_StartsRecording() {
@@ -92,7 +84,7 @@ class FormPresenterTests: XCTestCase {
         let success = sut?.retrieveData(from: mockArray)
 
         XCTAssertTrue(success != nil, "Data retrieval should succeed")
-        XCTAssertEqual(handler?.formData, expectedData)
+        XCTAssertEqual(DataModel.shared.currentFormData, expectedData)
     }
 
     func testRetrieveData_NoData() {

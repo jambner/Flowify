@@ -13,12 +13,13 @@ class FormPresenter {
     typealias RecordCompletion = (Bool) -> Void
     var observerFlag: Bool?
     private weak var viewController: FormViewController?
+    private var dataModel = DataModel.shared
     var handler: ScreenshotHandler?
     private var photoLibraryObserver: PhotoLibraryObserver?
 
     init() {
         handler = ScreenshotHandler()
-        photoLibraryObserver = PhotoLibraryObserver(albumName: "Dog")
+        photoLibraryObserver = PhotoLibraryObserver()
     }
 
     // Completion handler to make sure the recording is starting or ending
@@ -90,7 +91,7 @@ extension FormPresenter: DataRetrieval {
 
         // Call the updateData function with the combined formData dictionary
         if !formData.isEmpty {
-            handler?.updateData(formData: formData)
+            dataModel.updateData(formData: formData)
             return true
         }
 

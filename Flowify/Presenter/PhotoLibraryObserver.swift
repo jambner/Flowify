@@ -10,16 +10,18 @@ import Photos
 class PhotoLibraryObserver: NSObject, PHPhotoLibraryChangeObserver {
     private var isObserving = false
     private var dataModel = DataModel.shared
+    private var albumManager: AlbumManager?
     private var screenshotHandler: ScreenshotHandler?
     private var processedAssets = Set<String>()
 
     override init() {
         super.init()
         self.screenshotHandler = ScreenshotHandler()
+        albumManager = AlbumManager()
     }
 
     func startObserving() {
-        screenshotHandler?.albumCreation { [weak self] success, error in
+        albumManager?.albumCreation { [weak self] success, error in
             if success {
                 guard !(self?.isObserving ?? true) else { return }
                 PHPhotoLibrary.shared().register(self!) // Register as observer
@@ -77,7 +79,7 @@ class PhotoLibraryObserver: NSObject, PHPhotoLibraryChangeObserver {
 
     private func fetchAlbumAndMergeImages() {
         // Use ScreenshotHandler to fetch the album
-        screenshotHandler?.albumCreation { [weak self] success, error in
+        albumManager?.albumCreation { [weak self] success, error in
             if success {
                 // Fetch the assets from the album
                 let nameData = self?.dataModel.dictionaryLookUp(forKey: "name", in: self?.dataModel.currentFormData ?? [:]) ?? ""
@@ -94,7 +96,7 @@ class PhotoLibraryObserver: NSObject, PHPhotoLibraryChangeObserver {
                 let albumAssets = PHAsset.fetchAssets(in: album, options: nil)
 
                 // Load images and merge them
-                self?.screenshotHandler?.loadImagesFromAlbum(albumAssets) { images in
+                self?.albumManager?.loadImagesFromAlbum(albumAssets) { images in
                     if !images.isEmpty {
                         self?.screenshotHandler?.mergeAndSaveImages(images: images) { success, error in
                             if let error = error {

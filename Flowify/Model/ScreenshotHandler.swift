@@ -12,28 +12,12 @@ import UIKit
 class ScreenshotHandler: NSObject {
     private var dataModel = DataModel.shared
     private let imageMerger = ImageMerger()
+    private var albumManager: AlbumManager?
     private var processedAssets = Set<String>()
 
     override init() {
         super.init()
-    }
-
-    func albumCreation(completion: @escaping (Bool, Error?) -> Void) {
-        let nameData = dataModel.dictionaryLookUp(forKey: "name", in: dataModel.currentFormData)
-
-        PHPhotoLibrary.shared().performChanges({
-            let options = PHFetchOptions()
-            options.predicate = NSPredicate(format: "title = %@", nameData)
-            let existingAlbum = PHAssetCollection.fetchAssetCollections(with: .album, subtype: .any, options: options).firstObject
-            if existingAlbum == nil {
-                print("Creating new album: \(nameData)")
-                _ = PHAssetCollectionChangeRequest.creationRequestForAssetCollection(withTitle: nameData)
-            } else {
-                print("Album \(nameData) already exists")
-            }
-        }) { success, error in
-            completion(success, error)
-        }
+        albumManager = AlbumManager()
     }
 
     func processScreenshots(assets: [PHAsset]) {
@@ -47,7 +31,7 @@ class ScreenshotHandler: NSObject {
         }
 
         let albumAssets = PHAsset.fetchAssets(in: album, options: nil)
-        loadImagesFromAlbum(albumAssets) { [weak self] images in
+        albumManager?.loadImagesFromAlbum(albumAssets) { [weak self] images in
             if !images.isEmpty {
                 print("Images loaded from album, waiting to merge.")
             }
@@ -70,7 +54,7 @@ class ScreenshotHandler: NSObject {
 
         // Load images for merging
         let albumAssets = PHAsset.fetchAssets(in: album, options: nil)
-        loadImagesFromAlbum(albumAssets) { [weak self] images in
+        albumManager?.loadImagesFromAlbum(albumAssets) { [weak self] images in
             if !images.isEmpty {
                 self?.mergeAndSaveImages(images: images) { success, error in
                     if let error = error {
@@ -108,34 +92,6 @@ class ScreenshotHandler: NSObject {
         }
     }
 
-    func loadImagesFromAlbum(_ assets: PHFetchResult<PHAsset>, completion: @escaping ([UIImage]) -> Void) {
-        var images: [UIImage] = []
-        let group = DispatchGroup()
-
-        assets.enumerateObjects { asset, _, _ in
-            group.enter()
-            let options = PHImageRequestOptions()
-            options.deliveryMode = .highQualityFormat
-            options.isSynchronous = false
-
-            PHImageManager.default().requestImage(
-                for: asset,
-                targetSize: PHImageManagerMaximumSize,
-                contentMode: .default,
-                options: options
-            ) { image, info in
-                if let image = image {
-                    images.append(image)
-                }
-                group.leave()
-            }
-        }
-
-        group.notify(queue: .main) {
-            completion(images)
-        }
-    }
-
     private func processBatch(assets: [PHAsset], to album: PHAssetCollection) {
         let group = DispatchGroup()
         var processedImages: [(PHAsset, Data)] = []
@@ -151,7 +107,7 @@ class ScreenshotHandler: NSObject {
         }
 
         group.notify(queue: .main) {
-            self.copyImagesIntoAlbum(processedImages: processedImages, album: album)
+            self.albumManager?.copyImagesIntoAlbum(processedImages: processedImages, album: album)
         }
     }
 
@@ -163,34 +119,6 @@ class ScreenshotHandler: NSObject {
 
         PHImageManager.default().requestImageData(for: asset, options: options) { data, _, _, _ in
             completion(data)
-        }
-    }
-
-    private func copyImagesIntoAlbum(processedImages: [(PHAsset, Data)], album: PHAssetCollection) {
-        guard !processedImages.isEmpty else { return }
-
-        PHPhotoLibrary.shared().performChanges({
-            let albumChangeRequest = PHAssetCollectionChangeRequest(for: album)
-            var assetPlaceholders: [PHObjectPlaceholder] = []
-
-            for (asset, imageData) in processedImages {
-                if let image = UIImage(data: imageData) {
-                    let creationRequest = PHAssetCreationRequest.creationRequestForAsset(from: image)
-                    if let placeholder = creationRequest.placeholderForCreatedAsset {
-                        assetPlaceholders.append(placeholder)
-                        self.processedAssets.insert(asset.localIdentifier)
-                    }
-                }
-            }
-
-            albumChangeRequest?.addAssets(assetPlaceholders as NSArray)
-
-        }) { success, error in
-            if let error = error {
-                print("Error saving images: \(error.localizedDescription)")
-            } else if success {
-                print("Successfully saved \(processedImages.count) images to album")
-            }
         }
     }
 

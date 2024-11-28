@@ -9,6 +9,7 @@ import Photos
 
 class PhotoLibraryObserver: NSObject, PHPhotoLibraryChangeObserver {
     private var isObserving = false
+    private var lastObservedTimestamp: Date?
     private var dataModel = DataModel.shared
     private var albumManager: AlbumManager?
     private var screenshotHandler: ScreenshotHandler?
@@ -21,16 +22,10 @@ class PhotoLibraryObserver: NSObject, PHPhotoLibraryChangeObserver {
     }
 
     func startObserving() {
-        albumManager?.albumCreation { [weak self] success, error in
-            if success {
-                guard !(self?.isObserving ?? true) else { return }
-                PHPhotoLibrary.shared().register(self!) // Register as observer
-                self?.isObserving = true
-                print("Started observing photo library changes.")
-            } else if let error = error {
-                print("Failed to create/verify album: \(error.localizedDescription)")
-            }
-        }
+        lastObservedTimestamp = Date()
+        PHPhotoLibrary.shared().register(self)
+        isObserving = true
+        print("Started observing photo library changes at \(lastObservedTimestamp!)")
     }
 
     func stopObserving() {
@@ -51,14 +46,21 @@ class PhotoLibraryObserver: NSObject, PHPhotoLibraryChangeObserver {
     }
 
     private func handlePhotoLibraryChange() {
+        guard let lastObservedTimestamp = lastObservedTimestamp else {
+            print("No timestamp found, skipping asset filtering.")
+            return
+        }
+
         let fetchOptions = PHFetchOptions()
-        fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
+        fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: true)]
+        fetchOptions.predicate = NSPredicate(format: "creationDate > %@", lastObservedTimestamp as NSDate)
+
         let fetchResult = PHAsset.fetchAssets(with: .image, options: fetchOptions)
 
         var newScreenshots: [PHAsset] = []
 
         fetchResult.enumerateObjects { asset, _, _ in
-            if !self.processedAssets.contains(asset.localIdentifier) && self.isScreenshot(asset) {
+            if self.isScreenshot(asset) && !self.processedAssets.contains(asset.localIdentifier) {
                 newScreenshots.append(asset)
                 self.processedAssets.insert(asset.localIdentifier)
             }

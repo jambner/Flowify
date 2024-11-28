@@ -124,12 +124,38 @@ class ScreenshotHandler: NSObject {
 
     // MARK: Image Merging
     func mergeAndSaveImages(images: [UIImage], completion: @escaping (Bool, Error?) -> Void) {
-        guard let mergedImage = imageMerger.mergeImages(images: images) else {
-            completion(false, nil)
-            return
+        let imageBundles = bundleImages(images: images, bundleSize: 5)
+
+        for bundle in imageBundles {
+            guard let mergedImage = imageMerger.mergeImages(images: bundle) else {
+                print("Error merging images in the bundle.")
+                completion(false, nil)
+                return
+            }
+
+            UIImageWriteToSavedPhotosAlbum(mergedImage, self, #selector(self.image(_:didFinishSavingWithError:contextInfo:)), nil)
         }
-        UIImageWriteToSavedPhotosAlbum(mergedImage, self, #selector(self.image(_:didFinishSavingWithError:contextInfo:)), nil)
         completion(true, nil)
+    }
+
+    private func bundleImages(images: [UIImage], bundleSize: Int) -> [[UIImage]] {
+        var imageBundles: [[UIImage]] = []
+        var currentBundle: [UIImage] = []
+
+        for image in images {
+            currentBundle.append(image)
+
+            if currentBundle.count == bundleSize {
+                imageBundles.append(currentBundle)
+                currentBundle = []
+            }
+        }
+
+        if !currentBundle.isEmpty {
+            imageBundles.append(currentBundle)
+        }
+
+        return imageBundles
     }
 
     @objc private func image(_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {

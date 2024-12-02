@@ -25,7 +25,7 @@ A Swift-based screenshot management tool that automatically captures, processes,
 - [x] Separating Album-related functions to `AlbumManager` Class
 - [ ] Start on the Email Manager to send to the email
 - [ ] Enforcing order to photo Array with timestamp
-- [ ] Separating array into bundles
+- [x] Separating array into bundles
 - [ ] Explore other concepts to the project if needed
 - [ ] Clean up/ Documentation
 - [ ] Small tests

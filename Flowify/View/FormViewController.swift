@@ -122,6 +122,7 @@ class FormViewController: UIViewController, ImagePickerDelegate {
         dataDelegate = presenter
         nameTextField.validateEditedField(target: self, action: #selector(validateTextFields(_:)))
         emailTextField.validateEditedField(target: self, action: #selector(validateTextFields(_:)))
+        addTapGestureToDismissKeyboard()
 
         // Set the image picker delegate
         imagePicker.delegate = self

@@ -42,6 +42,20 @@ class Components: UIViewController {
     }()
 }
 
+extension UIViewController {
+    
+    func addTapGestureToDismissKeyboard() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        tapGesture.cancelsTouchesInView = false
+        view.addGestureRecognizer(tapGesture)
+    }
+
+    @objc private func dismissKeyboard() {
+        view.endEditing(true)
+    }
+    
+}
+
 extension UITextView: KeyAssociable {
     private enum AssociatedKeys {
         static var key = "key"

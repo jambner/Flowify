@@ -19,6 +19,7 @@
 		598A290D2C9EBD5800D9FFB0 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 598A290C2C9EBD5800D9FFB0 /* ImagePicker.swift */; };
 		598A290F2C9F838100D9FFB0 /* LaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 598A290E2C9F837200D9FFB0 /* LaunchViewController.swift */; };
 		598A29112C9F8F0800D9FFB0 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 598A29102C9F8EFA00D9FFB0 /* CardView.swift */; };
+		59A6BA442CFDFFC900E66302 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 59A6BA432CFDFFC900E66302 /* Launch Screen.storyboard */; };
 		59CAC5532C83E0E400977E6D /* ScreenshotHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59CAC5522C83E0E400977E6D /* ScreenshotHandler.swift */; };
 		59CAC5552C83E2C600977E6D /* FormPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59CAC5542C83E2C600977E6D /* FormPresenter.swift */; };
 		59D074272CE510020097F260 /* AlbumManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59D074262CE50FFD0097F260 /* AlbumManager.swift */; };
@@ -52,6 +53,7 @@
 		598A290C2C9EBD5800D9FFB0 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		598A290E2C9F837200D9FFB0 /* LaunchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchViewController.swift; sourceTree = "<group>"; };
 		598A29102C9F8EFA00D9FFB0 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
+		59A6BA432CFDFFC900E66302 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		59CAC5522C83E0E400977E6D /* ScreenshotHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenshotHandler.swift; sourceTree = "<group>"; };
 		59CAC5542C83E2C600977E6D /* FormPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormPresenter.swift; sourceTree = "<group>"; };
 		59D074262CE50FFD0097F260 /* AlbumManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumManager.swift; sourceTree = "<group>"; };
@@ -115,6 +117,7 @@
 				597B0C4A2CA4BECD00F565CA /* Prototypes */,
 				5964EFBD2C431FD400C2D8DA /* Assets.xcassets */,
 				5964EFC22C431FD400C2D8DA /* Info.plist */,
+				59A6BA432CFDFFC900E66302 /* Launch Screen.storyboard */,
 			);
 			path = Flowify;
 			sourceTree = "<group>";
@@ -122,7 +125,6 @@
 		597B0C4A2CA4BECD00F565CA /* Prototypes */ = {
 			isa = PBXGroup;
 			children = (
-				598A290E2C9F837200D9FFB0 /* LaunchViewController.swift */,
 				598A29102C9F8EFA00D9FFB0 /* CardView.swift */,
 			);
 			path = Prototypes;
@@ -141,6 +143,7 @@
 		597B0C4E2CA4F0D100F565CA /* View */ = {
 			isa = PBXGroup;
 			children = (
+				598A290E2C9F837200D9FFB0 /* LaunchViewController.swift */,
 				59D075182CF694780097F260 /* EmailViewController.swift */,
 				5964EFB82C431FD200C2D8DA /* FormViewController.swift */,
 			);
@@ -257,6 +260,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				59A6BA442CFDFFC900E66302 /* Launch Screen.storyboard in Resources */,
 				5964EFBE2C431FD400C2D8DA /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -504,8 +508,9 @@
 				DEVELOPMENT_TEAM = 7R9ZQ63BP7;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Flowify/Info.plist;
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "We need access to your photo library to allow you to create new albums and move photos to said albums.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -531,8 +536,9 @@
 				DEVELOPMENT_TEAM = 7R9ZQ63BP7;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Flowify/Info.plist;
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "We need access to your photo library to allow you to create new albums and move photos to said albums.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (

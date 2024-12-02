@@ -22,6 +22,8 @@
 		59CAC5532C83E0E400977E6D /* ScreenshotHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59CAC5522C83E0E400977E6D /* ScreenshotHandler.swift */; };
 		59CAC5552C83E2C600977E6D /* FormPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59CAC5542C83E2C600977E6D /* FormPresenter.swift */; };
 		59D074272CE510020097F260 /* AlbumManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59D074262CE50FFD0097F260 /* AlbumManager.swift */; };
+		59D075192CF6947D0097F260 /* EmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59D075182CF694780097F260 /* EmailViewController.swift */; };
+		59D0751B2CF694CA0097F260 /* EmailPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59D0751A2CF694C70097F260 /* EmailPresenter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +55,8 @@
 		59CAC5522C83E0E400977E6D /* ScreenshotHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenshotHandler.swift; sourceTree = "<group>"; };
 		59CAC5542C83E2C600977E6D /* FormPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormPresenter.swift; sourceTree = "<group>"; };
 		59D074262CE50FFD0097F260 /* AlbumManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumManager.swift; sourceTree = "<group>"; };
+		59D075182CF694780097F260 /* EmailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailViewController.swift; sourceTree = "<group>"; };
+		59D0751A2CF694C70097F260 /* EmailPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailPresenter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -137,6 +141,7 @@
 		597B0C4E2CA4F0D100F565CA /* View */ = {
 			isa = PBXGroup;
 			children = (
+				59D075182CF694780097F260 /* EmailViewController.swift */,
 				5964EFB82C431FD200C2D8DA /* FormViewController.swift */,
 			);
 			path = View;
@@ -145,6 +150,7 @@
 		597B0C4F2CA4F0E100F565CA /* Presenter */ = {
 			isa = PBXGroup;
 			children = (
+				59D0751A2CF694C70097F260 /* EmailPresenter.swift */,
 				597B0C532CAE30A900F565CA /* PhotoLibraryObserver.swift */,
 				59CAC5542C83E2C600977E6D /* FormPresenter.swift */,
 			);
@@ -313,6 +319,7 @@
 				59D074272CE510020097F260 /* AlbumManager.swift in Sources */,
 				598A29112C9F8F0800D9FFB0 /* CardView.swift in Sources */,
 				5964EFB92C431FD200C2D8DA /* FormViewController.swift in Sources */,
+				59D075192CF6947D0097F260 /* EmailViewController.swift in Sources */,
 				597B0C542CAE30B400F565CA /* PhotoLibraryObserver.swift in Sources */,
 				59CAC5532C83E0E400977E6D /* ScreenshotHandler.swift in Sources */,
 				597B0C562CAE32FF00F565CA /* DataModel.swift in Sources */,
@@ -322,6 +329,7 @@
 				5964EFB72C431FD200C2D8DA /* SceneDelegate.swift in Sources */,
 				598A290F2C9F838100D9FFB0 /* LaunchViewController.swift in Sources */,
 				597B0C4C2CA4F04000F565CA /* ImageMerger.swift in Sources */,
+				59D0751B2CF694CA0097F260 /* EmailPresenter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

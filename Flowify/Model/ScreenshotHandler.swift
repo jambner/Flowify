@@ -20,40 +20,33 @@ class ScreenshotHandler: NSObject {
         albumManager = AlbumManager()
     }
 
-    func processScreenshots(assets: [PHAsset]) {
-        let nameData = dataModel.dictionaryLookUp(forKey: "name", in: dataModel.currentFormData)
-        let fetchOptions = PHFetchOptions()
-        fetchOptions.predicate = NSPredicate(format: "title = %@", nameData)
+    lazy var album: PHAssetCollection? = {
+        return albumManager?.fetchAlbumForNameData()
+    }()
 
-        guard let album = PHAssetCollection.fetchAssetCollections(with: .album, subtype: .any, options: fetchOptions).firstObject else {
+    func processScreenshots(assets: [PHAsset]) {
+        guard let validAlbum = album else {
             print("Target album not found")
             return
         }
 
-        let albumAssets = PHAsset.fetchAssets(in: album, options: nil)
+        let albumAssets = PHAsset.fetchAssets(in: validAlbum, options: nil)
         albumManager?.loadImagesFromAlbum(albumAssets) { [weak self] images in
             if !images.isEmpty {
                 print("Images loaded from album, waiting to merge.")
             }
         }
 
-        // Process new assets
-        processNewAssets(assets, to: album)
+        processNewAssets(assets, to: validAlbum)
     }
 
     func mergeImagesAfterProcessing(assets: [PHAsset]) {
-        // Once new assets have been processed, perform image merging
-        let nameData = dataModel.dictionaryLookUp(forKey: "name", in: dataModel.currentFormData)
-        let fetchOptions = PHFetchOptions()
-        fetchOptions.predicate = NSPredicate(format: "title = %@", nameData)
-
-        guard let album = PHAssetCollection.fetchAssetCollections(with: .album, subtype: .any, options: fetchOptions).firstObject else {
+        guard let validAlbum = album else {
             print("Target album not found for merging.")
             return
         }
 
-        // Load images for merging
-        let albumAssets = PHAsset.fetchAssets(in: album, options: nil)
+        let albumAssets = PHAsset.fetchAssets(in: validAlbum, options: nil)
         albumManager?.loadImagesFromAlbum(albumAssets) { [weak self] images in
             if !images.isEmpty {
                 self?.mergeAndSaveImages(images: images) { success, error in
@@ -84,11 +77,11 @@ class ScreenshotHandler: NSObject {
             return isNew
         }
 
-        if newAssets.isEmpty {
-            print("No new assets to process.")
-        } else {
+        if !newAssets.isEmpty {
             print("Processing \(newAssets.count) new assets.")
             processBatch(assets: newAssets, to: album)
+        } else {
+            print("No new assets to process.")
         }
     }
 
@@ -133,7 +126,13 @@ class ScreenshotHandler: NSObject {
                 return
             }
 
-            UIImageWriteToSavedPhotosAlbum(mergedImage, self, #selector(self.image(_:didFinishSavingWithError:contextInfo:)), nil)
+            albumManager?.saveImageToAlbum(mergedImage) { success, error in
+                if success {
+                    print("Merged image saved to album successfully!")
+                } else {
+                    print("Error saving merged image to album: \(error?.localizedDescription ?? "Unknown error")")
+                }
+            }
         }
         completion(true, nil)
     }

@@ -84,6 +84,19 @@ class FormViewController: UIViewController, ImagePickerDelegate {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
+    
+    // Testing entry point for email
+    private lazy var emailLink: UILabel = {
+        let label = UILabel()
+        label.text = "Email Test"
+        label.font = UIFont.systemFont(ofSize: 12, weight: .bold)
+        label.textColor = .systemBlue
+        label.isUserInteractionEnabled = true
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(emailAction))
+        label.addGestureRecognizer(tapGesture)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -95,6 +108,7 @@ class FormViewController: UIViewController, ImagePickerDelegate {
         stackView.addArrangedSubview(submitButton)
         stackView.addArrangedSubview(recordButton)
         stackView.addArrangedSubview(mergeLink)
+        stackView.addArrangedSubview(emailLink)
 
         view.addSubview(stackView)
 
@@ -137,6 +151,11 @@ class FormViewController: UIViewController, ImagePickerDelegate {
     
     @objc func mergeAction() {
         imagePicker.present(from: self)
+    }
+    
+    let emailVC = EmailViewController()
+    @objc func emailAction() {
+        emailVC.populateEmailComposer(from: self)
     }
 
     // ImagePickerDelegate method

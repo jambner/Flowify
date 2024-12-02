@@ -30,6 +30,14 @@ class AlbumManager {
         }
     }
 
+    func fetchAlbumForNameData() -> PHAssetCollection? {
+        let nameData = dataModel.dictionaryLookUp(forKey: "name", in: dataModel.currentFormData)
+        let fetchOptions = PHFetchOptions()
+        fetchOptions.predicate = NSPredicate(format: "title = %@", nameData)
+
+        return PHAssetCollection.fetchAssetCollections(with: .album, subtype: .any, options: fetchOptions).firstObject
+    }
+
     func copyImagesIntoAlbum(processedImages: [(PHAsset, Data)], album: PHAssetCollection) {
         guard !processedImages.isEmpty else { return }
 
@@ -85,4 +93,48 @@ class AlbumManager {
             completion(images)
         }
     }
+    
+    func filterAssetsInAlbum(after timestamp: Date, albumName: String?, completion: @escaping ([PHAsset]) -> Void) {
+        guard let album = fetchAlbumForNameData() else {
+            print("No album found")
+            completion([])
+            return
+        }
+        
+        let fetchOptions = PHFetchOptions()
+        fetchOptions.predicate = NSPredicate(format: "creationDate > %@", timestamp as NSDate) // Filter assets after the timestamp
+        let albumAssets = PHAsset.fetchAssets(in: album, options: fetchOptions)
+
+        var filteredAssets: [PHAsset] = []
+        albumAssets.enumerateObjects { (asset, _, _) in
+            filteredAssets.append(asset)
+        }
+        completion(filteredAssets)
+    }
+
+    func saveImageToAlbum(_ image: UIImage, completion: @escaping (Bool, Error?) -> Void) {
+        if let album = fetchAlbumForNameData() {
+            PHPhotoLibrary.shared().performChanges({
+                let creationRequest = PHAssetChangeRequest.creationRequestForAsset(from: image)
+                let assetPlaceholder = creationRequest.placeholderForCreatedAsset
+
+                // Add the image to the fetched album
+                if let assetPlaceholder = assetPlaceholder {
+                    let albumChangeRequest = PHAssetCollectionChangeRequest(for: album)
+                    albumChangeRequest?.addAssets([assetPlaceholder] as NSArray)
+                }
+            }) { success, error in
+                if let error = error {
+                    print("Error saving image to album: \(error.localizedDescription)")
+                } else {
+                    print("Image successfully saved to album!")
+                }
+                completion(success, error)
+            }
+        } else {
+            print("Target album not found for saving merged image.")
+            completion(false, nil)
+        }
+    }
+
 }

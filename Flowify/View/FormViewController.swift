@@ -155,7 +155,7 @@ class FormViewController: UIViewController, ImagePickerDelegate {
     
     let emailVC = EmailViewController()
     @objc func emailAction() {
-        self.present(emailVC, animated: true)
+        emailVC.populateEmailComposer(from: self)
     }
 
     // ImagePickerDelegate method

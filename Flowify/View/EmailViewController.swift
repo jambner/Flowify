@@ -13,25 +13,34 @@ class EmailViewController: MFMailComposeViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.mailComposeDelegate = self
-        
         presenter = EmailPresenter()
-        populateEmailComposer()
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        populateEmailComposer(from: self)
     }
     
-    func populateEmailComposer() {
-        guard let presenter = presenter else { return }
+    func populateEmailComposer(from viewController: UIViewController) {
+        guard let presenter = presenter else {
+            print("Presenter is nil")
+            return
+        }
 
         let recipient = presenter.fetchEmailRecipient
         let subject = presenter.fetchFlowName
-        
-        self.setToRecipients([recipient])
-        self.setSubject(subject)
+
+        let mailComposer = MFMailComposeViewController()
+        mailComposer.mailComposeDelegate = self
+        mailComposer.setToRecipients([recipient])
+        mailComposer.setSubject(subject)
+
+        viewController.present(mailComposer, animated: true, completion: nil)
     }
 }
 
 extension EmailViewController: MFMailComposeViewControllerDelegate {
-    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: (any Error)?) {
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
         controller.dismiss(animated: true, completion: nil)
         
         switch result {
